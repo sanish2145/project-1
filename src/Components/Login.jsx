@@ -1,19 +1,22 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AuthProvider, { AuthContext } from './Context/AuthProvider';
 
 const Login = () => {
+  const {login} =useContext(AuthContext)
   const [welcomeMessage, setWelcomeMessage] = useState('');
 
   const postLoginData = async (values, resetForm) => {
     try {
       const response = await axios.post("https://blog-hqx2-onrender.com/user/login", values);
-      toast.success("Login successful!");
-      setWelcomeMessage(`Welcome back, ${values.email}!`);
-      resetForm();
+      const token = response.data.token
+      const user =response.data.user
+      login(token,user) 
+      
     } catch (error) {
       console.error(error);
       const message = error.response?.data?.message || "Login failed. Please check your credentials.";

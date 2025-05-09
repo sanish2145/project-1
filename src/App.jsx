@@ -1,17 +1,21 @@
-import React from 'react'
-import RegistrationForm from './Components/Registrationform'
-import Navbar from './Components/Navbar'
-import Create from './Components/Login'
+import './App.css'
+import Home from './pages/Home'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import { BrowserRouter as Router,Routes,Route } from 'react-router-dom'
 
-const App = () => {
+function App() {
+
   return (
-    <div>
-      <Navbar/>
-      <Create/>
-      <RegistrationForm/>
-      
-    </div>
+  <main>
+    <div className='bg-red-400 text-2xl'>hello</div>
+    <Router>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/signup' element={<Register />} />
+        <Route path="/login" element={<Login/>} />
+      </Routes>
+    </Router>
+  </main>
   )
 }
-
-export default App
